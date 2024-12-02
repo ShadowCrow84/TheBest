@@ -27,5 +27,19 @@ def query_video(inline_query):
         bot.answer_inline_query(inline_query.id, [r])
     except Exception as e:
         print(e)
+
+@bot.message_handler(commands=["poll"])
+def create_poll(message):
+    bot.send_message(message.chat.id, "English Article Test")
+    answer_options = ["a", "an", "the", "-"]
+
+    bot.send_poll(
+        chat_id=message.chat.id,
+        question="We are going to '' park.",
+        options=answer_options,
+        type="quiz",
+        correct_option_id=2,
+        is_anonymous=False,
+    )
     # Запуск бота
 bot.polling()
